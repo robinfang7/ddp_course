@@ -1,0 +1,9 @@
+Bootstrap: docker
+From: nvcr.io/nvidia/pytorch:23.01-py3
+Stage: build
+
+%post
+    apt-get update && apt-get -y upgrade
+    apt-get install -y pdsh
+    python -m pip install --upgrade pip
+    python -m pip --no-cache-dir install deepspeed==0.8.0
