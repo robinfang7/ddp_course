@@ -1,0 +1,15 @@
+BootStrap: docker
+From: nvcr.io/nvidia/pytorch:23.01-py3
+Stage: build
+
+%environment
+    export HOROVOD_GPU=CUDA
+    export HOROVOD_GPU_OPERATIONS=NCCL
+    export HOROVOD_NCCL_LINK=SHARED
+    export HOROVOD_WITHOUT_GLOO=1
+    export HOROVOD_WITH_MPI=1
+    export HOROVOD_WITH_PYTORCH=1
+    export HOROVOD_WITHOUT_TENSORFLOW=1
+    export HOROVOD_WITHOUT_MXNET=1
+%post
+    pip install --no-cache-dir horovod==0.27.0
