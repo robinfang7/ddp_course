@@ -17,9 +17,9 @@ SINGULARITY="singularity run -B /work:/work --nv $SIF"
 
 CMD="python main.py \
 -a resnet50 \
---batch-size 128 \
+--batch-size 256 \
 --print-freq 100 \
---epochs 5 \
+--epochs 1 \
 --rank 0 \
 --world-size 1 \
 --multiprocessing-distributed \
@@ -27,7 +27,7 @@ CMD="python main.py \
 --dummy"
 #--multiprocessing-distributed \ for multi gpu
 #--dist-url env:// tcp://127.0.0.1:1234
-#--dummy /work/u8880716/dataset/imagenet
+#--dummy /work/$(whoami)/dataset/imagenet
 #--batch-size: 256 for 1 GPU, 512 for 2 GPU, 2048 for 8 GPU
 
 echo "srun $SINGULARITY $CMD"

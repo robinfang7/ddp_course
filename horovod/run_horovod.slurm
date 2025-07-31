@@ -10,15 +10,16 @@
 
 #export UCX_NET_DEVICES=mlx5_0:1 ; echo "UCX_NET_DEVICES=mlx5_0:1" # for tensorflow_21.05-tf2-py3
 #export UCX_IB_GPU_DIRECT_RDMA=1 ; echo "UCX_IB_GPU_DIRECT_RDMA=1" # for tensorflow_21.05-tf2-py3 enable RDMA
-#export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 # for pytorch
+export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7 # for pytorch
 
 SECONDS=0
 
 #SIF="/work/TWCC_cntr/tensorflow_21.11-tf2-py3.sif"
-SIF="/work/u8880716/image/tensorflow_21.05-tf2-py3.sif"
-#SIF="/work/u8880716/image/pytorch_23.01-py3_horovod.sif"
+#SIF="/work/$(whoami)/image/tensorflow_21.05-tf2-py3.sif"
+SIF="/work/$(whoami)/image/pytorch_23.01-py3_horovod.sif"
+
 SINGULARITY="singularity run -B /work:/work --nv $SIF"
-CMD="python tensorflow2_keras_mnist.py" # test_horovod.py tensorflow2_keras_mnist.py pytorch_synthetic_benchmark.py
+CMD="python pytorch_mnist.py" # test_horovod.py tensorflow2_keras_mnist.py pytorch_mnist.py
 RUN="srun $SINGULARITY $CMD"
 echo $RUN; $RUN
 

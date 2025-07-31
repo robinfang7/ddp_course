@@ -1,11 +1,11 @@
 #!/bin/bash
 #SBATCH -A GOV108032           # iService Project id GOV108032
-#SBATCH -J ds_1x2GPU           # job name
+#SBATCH -J ds_fp16_z1_1x8GPU_j16  # job name
 #SBATCH -p gp1d                # partition gtest gp1d, gpNCHC_LLM
 #SBATCH --nodes=1              # Maximum number of nodes to be allocated
 #SBATCH --cpus-per-task=4      # Number of cores per MPI task
 #SBATCH --ntasks-per-node=1    # Number of MPI tasks (i.e. processes)
-#SBATCH --gres=gpu:2
+#SBATCH --gres=gpu:8
 ##SBATCH -w gpnh003            # get specific node
 #SBATCH -o %x_%j.out           # Path to the standard output file
 
@@ -14,20 +14,30 @@ SECONDS=0
 #export OMP_NUM_THREADS=1
 rm *.pth.tar
 
-SIF="/work/u8880716/image/pytorch_23.01-ds.sif"
+SIF="/work/$(whoami)/image/pytorch_23.01-ds.sif"
 SINGULARITY="singularity run -B /work:/work --nv $SIF"
 
-CMD="deepspeed main.py \
---deepspeed --deepspeed_config config/ds_config.json \
+NSYS="nsys profile -t cuda,nvtx,mpi \
+ -w true \
+ -y 60 -d 60 \
+ --force-overwrite true \
+ -o ${SLURM_JOB_NAME}_${SLURM_JOBID}"
+#
+
+CMD="deepspeed main_nvtx.py \
+--deepspeed --deepspeed_config config/ds_fp16_z1_config.json \
 -a resnet50 \
---batch-size 512 \
+-j 16 \
+--batch-size 2048 \
 --epochs 1 \
---print-freq 100 \
+--print-freq 10 \
 --world-size 1 \
 --multiprocessing_distributed \
 --dummy"
 #--multiprocessing_distributed \
-# batch-size: 256 for 1 GPU, 512 for 2 GPU, 2048 for 8 GPU
+# batch-size: 256 for 1 GPU, 512 for 2 GPUs, 1024 for 4 GPUs, 2048 for 8 GPUs
+# ds_config.json ds_fp16_config.json ds_fp16_z1_config.json
+#--dummy /work/$(whoami)/dataset/imagenet
 
 RUN="srun $SINGULARITY $CMD"
 echo "$RUN"; $RUN

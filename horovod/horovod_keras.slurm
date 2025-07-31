@@ -2,7 +2,7 @@
 #SBATCH -A GOV109092           # iService Project id GOV108032 GOV109092 GOV112012 GOV110171
 #SBATCH -J horovod            # job name
 #SBATCH -p gtest               # partition gtest gp1d, gpNCHC_LLM
-#SBATCH --nodes=1              # Maximum number of nodes to be allocated
+#SBATCH --nodes=2              # Maximum number of nodes to be allocated
 #SBATCH --cpus-per-task=4      # Number of cores per MPI task
 #SBATCH --ntasks-per-node=2    # Number of MPI tasks (i.e. processes)
 #SBATCH --gres=gpu:2

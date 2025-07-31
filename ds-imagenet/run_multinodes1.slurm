@@ -14,16 +14,20 @@ nodes_array=($nodes) ; echo "node list:" ${nodes_array[*]}
 head_node=${nodes_array[0]}
 head_node_ip=$(srun --nodes=1 --ntasks=1 -w "$head_node" hostname --ip-address)
 
+#get GPU count
+IFS=',' read -ra gpu_array <<< "$SLURM_JOB_GPUS"
+GPUS_PER_NODE=${#gpu_array[@]}; echo "GPUS_PER_NODE=$GPUS_PER_NODE"
+
 export OMP_NUM_THREADS=1
 
 SECONDS=0
 
-SIF="/work/u8880716/image/pytorch_23.01-ds.sif"
+SIF="/work/$(whoami)/image/pytorch_23.01-ds.sif"
 SINGULARITY="singularity run -B /work:/work --nv $SIF"
 
 LAUNCHER="torchrun \
 --nnodes $SLURM_NNODES \
---nproc_per_node 2 \
+--nproc_per_node ${GPUS_PER_NODE} \
 --rdzv_id $RANDOM \
 --rdzv_backend c10d \
 --rdzv_endpoint $head_node_ip:1234 \

@@ -15,7 +15,7 @@ SECONDS=0
 #export CUDA_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
 #export OMP_NUM_THREADS=1
 
-SIF="/work/u8880716/image/pytorch_23.01-ds.sif"
+SIF="/work/$(whoami)/image/pytorch_23.01-ds.sif"
 SINGULARITY="singularity run -B /work:/work --nv $SIF"
 
 CMD="deepspeed main.py \

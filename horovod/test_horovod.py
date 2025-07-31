@@ -1,4 +1,4 @@
-FRAMEWORK="TORCH" #TF or TORCH
+FRAMEWORK="TF" #TF or TORCH
 
 if FRAMEWORK=="TF":
     import tensorflow as tf

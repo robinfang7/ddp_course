@@ -27,9 +27,11 @@ rm hostfile *.pth.tar
 
 SECONDS=0
 
-SIF="/work/u8880716/image/pytorch_23.01-ds.sif"
+SIF="/work/$(whoami)/image/pytorch_23.01-ds.sif"
 SINGULARITY="singularity run -B /work:/work --nv $SIF"
+
 LAUNCHER="deepspeed --hostfile=hostfile" 
+
 CMD="$LAUNCHER main.py \
 --deepspeed \
 --deepspeed_config config/ds_fp16_z1_config.json \
