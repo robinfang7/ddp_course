@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -A GOV108032           # iService Project id GOV108032
+#SBATCH -A <project_id>        # iService Project id
 #SBATCH -J ds_fp16_z1_1x8GPU_j16  # job name
 #SBATCH -p gp1d                # partition gtest gp1d, gpNCHC_LLM
 #SBATCH --nodes=1              # Maximum number of nodes to be allocated
