@@ -18,3 +18,4 @@
    3. DeepSpeed
 
 [Setup WSL](https://hackmd.io/@ybfang/SkcA9Ifjll)
+[Install Docker and Singularity in WSL](https://hackmd.io/@ybfang/BkqzpCGjxl)
