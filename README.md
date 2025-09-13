@@ -16,3 +16,5 @@
    1. Horovod 
    2. Pytorch DDP 
    3. DeepSpeed
+
+[Setup WSL](https://hackmd.io/@ybfang/SkcA9Ifjll)
