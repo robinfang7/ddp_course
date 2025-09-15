@@ -17,5 +17,7 @@
    2. Pytorch DDP 
    3. DeepSpeed
 
-[Setup WSL](https://hackmd.io/@ybfang/SkcA9Ifjll)
-[Install Docker and Singularity in WSL](https://hackmd.io/@ybfang/BkqzpCGjxl)
+[Setup WSL](https://hackmd.io/@ybfang/SkcA9Ifjll)  
+[Build Ubuntu VM in TWCC VCS](https://hackmd.io/@ybfang/r1IgjiHoxg)  
+[Install Docker and Singularity](https://hackmd.io/@ybfang/BkqzpCGjxl)
+
